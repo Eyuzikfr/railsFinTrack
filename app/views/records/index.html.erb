@@ -3,14 +3,106 @@
 <% content_for :title, "Records" %>
 
 <h1>Records</h1>
+<% total_income = 0 %>
+<% total_expenditure = 0 %>
 
 <div id="records">
-  <% @records.each do |record| %>
-    <%= render record %>
-    <p>
-      <%= link_to "Show this record", record %>
-    </p>
-  <% end %>
+  <table class="table income-table">
+    <thead>
+      <tr>
+        <th colspan="4">
+          Income
+        </th>
+      </tr>
+      <tr>
+        <th>
+          Income Details
+        </th>
+        <th>
+          Income Amount
+        </th>
+        <th colspan="2">
+          Edit
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @records.each do |record| %>
+      <% if record.income_details != "" %>
+      <tr>
+        <td>
+          <%= record.income_details %>
+        </td>
+        <td>
+          <%= record.income_amount %>
+        </td>
+        <td class="view-btn">
+          <%= link_to "View", record, class:"btn btn-normal" %>
+        </td>
+        <td class="delete-btn">
+          <%= link_to "Delete", record, method: :delete, data: {turbo_method: :delete}, class:"btn btn-danger" %>
+        </td>
+      </tr>
+      <% total_income += record.income_amount %>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <table class=" table expenditure-table">
+    <thead>
+      <tr>
+        <th colspan="5">
+          Expenditure
+        </th>
+      </tr>
+      <tr>
+        <th>
+          Expenditure Details
+        </th>
+        <th>
+          Expenditure Amount
+        </th>
+        <th>
+          Expenditure Category
+        </th>
+        <th colspan="2">
+          Edit
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @records.each do |record| %>
+      <% if record.expenditure_details != "" %>
+      <tr>
+        <td>
+          <%= record.expenditure_details %>
+        </td>
+        <td>
+          <%= record.expenditure_amount %>
+        </td>
+        <td>
+          <%= record.expenditure_category %>
+        </td>
+        <td class="view-btn">
+          <%= link_to "View", record, class:"btn btn-normal" %>
+        </td>
+        <td class="delete-btn">
+          <%= link_to "Delete", record, method: :delete, data: {turbo_method: :delete}, class:"btn btn-danger" %>
+        </td>
+      </tr>
+      <% total_expenditure += record.expenditure_amount %>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+  </p>
 </div>
 
-<%= link_to "New record", new_record_path %>
+<p>Total Income: <%= total_income %></p>
+<p>Total Expenditure: <%= total_expenditure %></p>
+<% total_savings = total_income - total_expenditure %>
+<p>Total Savings: <%= total_savings %></p>
+
+<%= link_to "New record", new_record_path, class:"btn btn-normal" %>

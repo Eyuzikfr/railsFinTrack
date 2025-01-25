@@ -1,5 +1,16 @@
+/* @font-face {
+  font-family: 'Poppins';
+  src: url('/app/fonts/poppins/poppinsrg.woff2') format('woff2'),
+       url('./fonts/poppins/poppinsrg.woff') format('woff'),
+       url('./fonts/poppins/poppinsrg.ttf') format('truetype');
+} */
+
+* {
+  box-sizing: border-box;
+}
+
 html {
-  font-family: 'Fira Code';
+  font-family: Poppins, sans-serif;
 }
 
 header {
@@ -88,4 +99,70 @@ input {
 
 select {
   font-family: 'Fira Code';
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th, td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 2px solid black;
+}
+
+.income-table {
+  width: auto;
+  display: inline;
+}
+
+.expenditure-table {
+  width: auto;
+  display: inline;
+}
+
+.btn {
+  cursor: pointer;
+  background: none;
+  scale: 1;
+  border-radius: 7px;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.btn:hover {
+  scale: 1.2;
+}
+
+.btn-danger {
+  border: 3px solid #e63e3e;
+  color: #e63e3e;
+}
+
+.btn-danger:hover {
+  background: #e63e3e;
+  color: white;
+  text-decoration: none;
+}
+
+.btn-normal {
+  border: 3px solid #474747;
+  background: #474747;
+  color: white;
+}
+
+.btn-normal:hover {
+  border: 3px solid #474747;
+  background: none;
+  color: #474747;
+  text-decoration: none;
+}
+
+.view-btn {
+  border-right: none;
+}
+
+.delete-btn {
+  border-left: none;
 }

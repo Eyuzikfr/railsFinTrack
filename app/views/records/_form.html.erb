@@ -39,8 +39,10 @@
 
 <div class="expenditure_record">
   <%= form.label :expenditure_category, style: "display: block" %>
-  <%= form.text_field :expenditure_category %>
+  <%= form.select :expenditure_category, [["Needs", "Needs"], ["Wants", "Wants"]], include_blank: "Select an expenditure category" %>
 </div>
+
+<br>
 
 <div id="submit-btn">
   <%= form.submit %>
