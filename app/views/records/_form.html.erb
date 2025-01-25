@@ -1,0 +1,100 @@
+<%= form_with(model: record) do |form| %>
+<% if record.errors.any? %>
+<div style="color: red">
+  <h2><%= pluralize(record.errors.count, "error") %> prohibited this record from being saved:</h2>
+
+  <ul>
+    <% record.errors.each do |error| %>
+    <li><%= error.full_message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<select name="selected_option" id="selected_option">
+  <option value="" selected>Add a record</option>
+  <option value="income_record">Income Record</option>
+  <option value="expenditure_record">Expenditure Record</option>
+</select>
+
+<div class="income_record">
+  <%= form.label :income_details, style: "display: block" %>
+  <%= form.text_field :income_details %>
+</div>
+
+<div class="income_record">
+  <%= form.label :income_amount, style: "display: block" %>
+  <%= form.text_field :income_amount %>
+</div>
+
+<div class="expenditure_record">
+  <%= form.label :expenditure_details, style: "display: block" %>
+  <%= form.text_field :expenditure_details %>
+</div>
+
+<div class="expenditure_record">
+  <%= form.label :expenditure_amount, style: "display: block" %>
+  <%= form.text_field :expenditure_amount %>
+</div>
+
+<div class="expenditure_record">
+  <%= form.label :expenditure_category, style: "display: block" %>
+  <%= form.text_field :expenditure_category %>
+</div>
+
+<div id="submit-btn">
+  <%= form.submit %>
+</div>
+
+<div id="output"></div>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const select = document.getElementById("selected_option");
+    const incomeForm = document.querySelectorAll(".income_record");
+    const expenditureForm = document.querySelectorAll(".expenditure_record");
+    const submitBtn = document.getElementById("submit-btn");
+
+    let userChoice = -1;
+
+    const toggleFormVisibility = (forms, visible) => {
+      forms.forEach(form => {
+        form.style.display = visible ? "block" : "none";
+      })
+    }
+
+    const resetForm = (forms => {
+      forms.forEach(form => {
+        const inputs = form.querySelectorAll("input");
+        inputs.forEach(input => input.value = "");
+      });
+    });
+
+    resetForm(incomeForm);
+    resetForm(expenditureForm);
+    select.value = "";
+
+    select.addEventListener("change", () => {
+      const value = select.value;
+
+      if (value === "income_record") {
+        toggleFormVisibility(incomeForm, true);
+        toggleFormVisibility(expenditureForm, false);
+        submitBtn.style.display = "block";
+      } else if (value === "expenditure_record") {
+        toggleFormVisibility(incomeForm, false);
+        toggleFormVisibility(expenditureForm, true);
+        submitBtn.style.display = "block";
+      } else {
+        toggleFormVisibility(incomeForm, false);
+        toggleFormVisibility(expenditureForm, false);
+        submitBtn.style.display = "none";
+      }
+    })
+
+    toggleFormVisibility(incomeForm, false);
+    toggleFormVisibility(expenditureForm, false);
+    submitBtn.style.display = "none";
+  })
+</script>
