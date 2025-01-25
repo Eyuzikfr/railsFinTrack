@@ -47,14 +47,22 @@
 </div>
 <% end %>
 
+<style>
+  .income_record {
+    display: none;
+  }
+
+  .expenditure_record {
+    display: none;
+  }
+</style>
+
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("turbo:load", () => {
     const select = document.getElementById("selected_option");
     const incomeForm = document.querySelectorAll(".income_record");
     const expenditureForm = document.querySelectorAll(".expenditure_record");
     const submitBtn = document.getElementById("submit-btn");
-
-    let userChoice = -1;
 
     const toggleFormVisibility = (forms, visible) => {
       forms.forEach(form => {
@@ -62,12 +70,16 @@
       })
     }
 
-    const resetForm = (forms => {
+    const resetForm = forms => {
       forms.forEach(form => {
         const inputs = form.querySelectorAll("input");
         inputs.forEach(input => input.value = "");
       });
-    });
+    };
+
+    toggleFormVisibility(incomeForm, false);
+    toggleFormVisibility(expenditureForm, false);
+    submitBtn.style.display = "none";
 
     resetForm(incomeForm);
     resetForm(expenditureForm);
@@ -84,15 +96,11 @@
         toggleFormVisibility(incomeForm, false);
         toggleFormVisibility(expenditureForm, true);
         submitBtn.style.display = "block";
-      } else {
+      } else if (value === "") {
         toggleFormVisibility(incomeForm, false);
         toggleFormVisibility(expenditureForm, false);
         submitBtn.style.display = "none";
       }
     })
-
-    toggleFormVisibility(incomeForm, false);
-    toggleFormVisibility(expenditureForm, false);
-    submitBtn.style.display = "none";
   })
 </script>
