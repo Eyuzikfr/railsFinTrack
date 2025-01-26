@@ -43,7 +43,7 @@
           <%= link_to "Delete", record, method: :delete, data: {turbo_method: :delete}, class:"btn btn-danger" %>
         </td>
       </tr>
-      <% total_income += record.income_amount %>
+      <% total_income += record.income_amount || 0 %>
       <% end %>
       <% end %>
     </tbody>
@@ -91,7 +91,7 @@
           <%= link_to "Delete", record, method: :delete, data: {turbo_method: :delete}, class:"btn btn-danger" %>
         </td>
       </tr>
-      <% total_expenditure += record.expenditure_amount %>
+      <% total_expenditure += record.expenditure_amount || 0 %>
       <% end %>
       <% end %>
     </tbody>
