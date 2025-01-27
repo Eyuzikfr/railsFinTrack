@@ -1,0 +1,15 @@
+<div class="alert" role="alert">
+  <%= notice %>
+</div>
+
+<script>
+  document.addEventListener("turbo:load", () => {
+    const alert = document.querySelector(".alert");
+    alert.style.display = "block";
+
+    function hideAlert() {
+      alert.style.display = "none";
+    }
+    setTimeout(hideAlert, 3000);
+  })
+</script>
