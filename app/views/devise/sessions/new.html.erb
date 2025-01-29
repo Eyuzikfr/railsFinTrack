@@ -1,3 +1,29 @@
+<style>
+  .password-input {
+    position: relative;
+    width: 500px;
+  }
+
+  .password-input input {
+    width: 100%;
+  }
+
+  .password-input button {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    /* border: 2px solid red; */
+    background: transparent;
+    height: 30px;
+    top: 48%;
+    border: none;
+  }
+
+  .toggle-icon {
+    width: 25px;
+  }
+</style>
+
 <h2>Log in</h2>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
@@ -6,9 +32,12 @@
   <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
 </div>
 
-<div class="field">
+<div class="field password-input">
   <%= f.label :password %><br />
-  <%= f.password_field :password, autocomplete: "current-password" %>
+  <%= f.password_field :password, autocomplete: "current-password", id:"password-input" %>
+  <button type="button" id="toggle-password-btn">
+    <%= image_tag("showpass.png", id:"toggle-pass-icon", class:"toggle-icon", alt:"toggle password visibility button") %>
+  </button>
 </div>
 
 <% if devise_mapping.rememberable? %>
@@ -24,3 +53,40 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+
+<script>
+  document.addEventListener("turbo:load", () => {
+
+    const passwordInput = document.getElementById("password-input");
+    const togglePasswordBtn = document.getElementById("toggle-password-btn");
+    const togglePassIcon = document.getElementById("toggle-pass-icon");
+
+    const toggleIconVisibility = (inputField, button) => {
+      if (inputField.value.trim() !== "") {
+        button.style.display = "block";
+      } else {
+        button.style.display = "none";
+      }
+    }
+    passwordInput.addEventListener('input', () => {
+      toggleIconVisibility(passwordInput, togglePasswordBtn);
+    });
+    toggleIconVisibility(passwordInput, togglePasswordBtn);
+
+    togglePasswordBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const type = passwordInput.type === "password" ? "text" : "password";
+      passwordInput.type = type;
+      // togglePasswordBtn.textContent = type === "password" ? "Show" : "Hide";
+      if (type === "password") {
+        togglePasswordBtn.innerHTML = `
+    <%= image_tag("showpass.png", id:"toggle-pass-icon", class:"toggle-icon", alt:"toggle password visibility button") %>
+  `;
+      } else {
+        togglePasswordBtn.innerHTML = `
+    <%= image_tag("hidepass.png", id:"toggle-pass-icon", class:"toggle-icon", alt:"toggle password visibility button") %>
+  `;
+      }
+    });
+  });
+</script>

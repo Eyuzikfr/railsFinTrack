@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root "home#index"
   get "home/about"
   get "home/features"
+  get "app/assets/images"
   # get "records"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

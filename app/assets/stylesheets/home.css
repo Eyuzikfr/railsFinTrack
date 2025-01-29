@@ -94,12 +94,6 @@ main a:hover {
   color: #e63e3e;
 }
 
-input {
-  font-family: 'Fira Code';
-  height: 30px;
-  border-radius: 7px;
-  width: 500px;
-}
 
 table {
   border-collapse: collapse;
@@ -184,6 +178,8 @@ th {
 }
 
 input {
+  height: 30px;
+  width: 500px;
   border-radius: 7px;
   height: 35px;
   background-color: #ececec;
@@ -192,7 +188,7 @@ input {
   transition: scale 0.2s ease-in-out;
 }
 
-input:focus {
+input:active {
   scale: 1.025;
 }
 
@@ -217,6 +213,7 @@ select {
   display: flex;
   justify-content: center;
   gap: 50px;
+  margin-top: 60vh;
 }
 
 #footer a {
